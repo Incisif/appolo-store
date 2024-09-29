@@ -12,20 +12,20 @@ jest.mock("next/router", () => ({
 describe("Tests de navigation des pages", () => {
   // Test pour la Landing Page
   it("affiche la Landing Page", () => {
-    render(<LandingPage params={{ locale: "en" }} />);
+    render(<LandingPage />);
     expect(screen.getByText(/Welcome/i)).toBeInTheDocument(); // Teste la présence d'un élément sur la page
   });
 
   // Test pour la navigation vers la page des produits
   it("navigue vers la page des produits lorsque le lien est cliqué", () => {
-    render(<LandingPage params={{ locale: "en" }} />);
+    render(<LandingPage />);
     const productLink = screen.getByRole("link", { name: /Produits/i });
     expect(productLink).toBeInTheDocument();
   });
 
   // Test pour la navigation vers la page Profil
   it("navigue vers la page Profil lorsque le lien est cliqué", () => {
-    render(<LandingPage params={{ locale: "en" }} />);
+    render(<LandingPage />);
     const profileLink = screen.getByRole("link", { name: /Profil/i });
     expect(profileLink).toBeInTheDocument();
   });
@@ -34,13 +34,13 @@ describe("Tests de navigation des pages", () => {
     it('affiche la page de la catégorie "electronics"', () => {
       // Simule les paramètres de la route dans le router
       const mockRouter = {
-        query: { locale: "fr", category: "electronics" }, // Ajoute "locale" et "category"
+        query: { category: "electronics" }, 
       };
       (useRouter as jest.Mock).mockReturnValue(mockRouter);
-  
+
       // Rend la page de catégorie avec les paramètres simulés
       render(<CategoryPage params={{ category: "electronics" }} />);
-  
+
       // Vérifie si le texte spécifique à la catégorie est bien présent
       expect(screen.getByText(/electronics/i)).toBeInTheDocument();
     });
@@ -64,7 +64,7 @@ describe("Tests de navigation des pages", () => {
   it('affiche la page de la marque "samsung"', () => {
     const router = useRouter();
     router.query = { brand: "samsung" }; // Simule une autre marque
-    render(<BrandPage params={{brand: "samsung"}}/>);
+    render(<BrandPage params={{ brand: "samsung" }} />);
     expect(screen.getByText(/samsung/i)).toBeInTheDocument();
   });
 

@@ -1,9 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Header from "@/components/header";
-
-jest.mock("next/router", () => ({
-  useRouter: jest.fn(),
-}));
+import Header from "@/components/Header";
 
 describe("Header", () => {
   it("affiche le logo APPOLO dans le header", () => {
