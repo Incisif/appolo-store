@@ -5,5 +5,5 @@ type Props = {
 };
 
 export default function BrandPage({ params }: Readonly<Props>) {
-  return <div>Brands :{params.brand}</div>;
+  return <div className="font-manrope">Brands :{params.brand}</div>;
 }
