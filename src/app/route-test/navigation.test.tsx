@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { useRouter } from "next/router";
-import LandingPage from "../page"; // Assure-toi que le chemin est correct
+import LandingPage from "../page"; 
 import Header from "@/components/Header";
-import CategoryPage from "../categories/[category]/page"; // Page de catégorie
-import BrandPage from "../brands/[brand]/page"; // Page de marque
-import ProfilePage from "../profile/page"; // Page de profil
+import CategoryPage from "../categories/[category]/page"; 
+import BrandPage from "../brands/[brand]/page"; 
+import ProfilePage from "../profile/page"; 
 
 jest.mock("next/router", () => ({
   useRouter: jest.fn(),

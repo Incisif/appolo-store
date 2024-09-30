@@ -8,6 +8,9 @@ body {
 .font-manrope {
   font-family: var(--font-manrope);
 }
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
 
 @layer utilities {
   .text-balance {

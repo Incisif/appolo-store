@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
         <main className="max-w-screen-xl w-full mx-auto p-10 font-manrope">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
