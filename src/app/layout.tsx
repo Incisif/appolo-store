@@ -31,7 +31,9 @@ export default function RootLayout({
         className={`${montserrat.variable} ${manrope.variable} antialiased`}
       >
         <Header />
-        {children}
+        <main className="max-w-screen-xl w-full mx-auto p-10 font-manrope">
+          {children}
+        </main>
       </body>
     </html>
   );

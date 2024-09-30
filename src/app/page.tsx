@@ -1,25 +1,20 @@
+import Banner from "../components/LandingPageBanner";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const LandingPage = () => {
   return (
-    <div>
-      <h1>Welcome to the Store</h1>
-
-      <Link href={`/products`}>
-        <button className="bg-green-500">Produits</button>
-      </Link>
-
-      <Link href={`/deals`}>
-        <button className="bg-red-500">Deals</button>
-      </Link>
-
-      <Link href={`/profile`}>
-        <button className="bg-blue-500">Profile</button>
-      </Link>
-
-      <Link href={`/signup`}>
-        <button className="bg-pink-500">Signup</button>
-      </Link>
+    <div className="">
+      <Banner />
+      <h2 className="text-4xl font-bold  mt-8 text-zinc-600">Our gears</h2>
+      <div className="flex justify-between mt-4">
+        <h3 className="text-zinc-600">
+          Find eveything you need for your next shoot.
+        </h3>
+        <Button className="rounded-full font-semibold bg-zinc-600">
+          <Link href="/products"data-testid="shop-link">Shop now</Link>
+        </Button>
+      </div>
     </div>
   );
 };
