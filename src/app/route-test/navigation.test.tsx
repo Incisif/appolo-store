@@ -4,7 +4,7 @@ import LandingPage from "../page";
 import Header from "@/components/Header";
 import CategoryPage from "../categories/[category]/page"; 
 import BrandPage from "../brands/[brand]/page"; 
-import ProfilePage from "../profile/page"; 
+import ProfilePage from "../(user)/profile/page"; 
 
 jest.mock("next/router", () => ({
   useRouter: jest.fn(),

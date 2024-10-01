@@ -13,7 +13,13 @@ const ActionIcons = () => {
         className="w-4 h-4"
         data-testid="magnifyingGlassIcon"
       />
-      <ShoppingBagIcon className="w-4 h-4 ml-4" data-testid="shoppingBagIcon" />
+      <Link href="/cart">
+        <ShoppingBagIcon
+          className="w-4 h-4 ml-4"
+          data-testid="shoppingBagIcon"
+        />
+      </Link>
+
       <Link
         href="/profile"
         aria-label="Profile Link"
