@@ -30,5 +30,11 @@ describe("Landing page", () => {
     const categoryCards = screen.getAllByTestId("category-card");
     expect(categoryCards.length).toBeGreaterThan(0);
   });
+  it("renders the shop link", () => {
+    render(<LandingPage />);
+    const shopLink = screen.getByTestId("shop-link");
+    expect(shopLink).toBeInTheDocument();
+  }
+  );
 
 });
