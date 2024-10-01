@@ -86,7 +86,7 @@ const SignupDiscountBanner = () => {
               placeholder="Email"
               {...register("email")}
               data-testid="email-input"
-              className=" border-blue-600 rounded-none h-12 w-96 placeholder:text-white focus:outline-none "
+              className=" border-blue-600 rounded-none h-12 w-96 placeholder:text-white focus:outline-none text-white"
             />
           </div>
           <Button

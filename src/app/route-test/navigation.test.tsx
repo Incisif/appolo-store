@@ -1,11 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { useRouter } from "next/navigation";
-import LandingPage from "../page";
+import LandingPage from "../(landingPage)/page";
 import Header from "@/components/Header";
-import CategoryPage from "../category/[category]/page";
-import BrandPage from "../brands/[brand]/page";
+import CategoryPage from "../(products)/category/[category]/page";
+import BrandPage from "../(products)/brands/[brand]/page";
 import ProfilePage from "../(user)/profile/page";
-
 
 describe("Tests de navigation des pages", () => {
   // Test pour la Landing Page

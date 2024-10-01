@@ -1,4 +1,4 @@
-import Banner from "../components/LandingPageBanner";
+import Banner from "../../components/LandingPageBanner";
 import CardsSection from "@/components/CardsSection";
 import VisionSection from "@/components/VisionSection";
 import SignupDiscountBanner from "@/components/SignupDiscountBanner";

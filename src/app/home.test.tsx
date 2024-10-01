@@ -1,8 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import LandingPage from "./page";
+import LandingPage from "./(landingPage)/page";
 
 describe("Landing page", () => {
-
   // Teste si le titre principal est rendu
   it("renders the heading", () => {
     render(<LandingPage />);
@@ -34,7 +33,5 @@ describe("Landing page", () => {
     render(<LandingPage />);
     const shopLink = screen.getByTestId("shop-link");
     expect(shopLink).toBeInTheDocument();
-  }
-  );
-
+  });
 });
