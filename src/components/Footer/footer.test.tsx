@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Footer from "./index";
-jest.mock("next/router", () => ({
+jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
 
