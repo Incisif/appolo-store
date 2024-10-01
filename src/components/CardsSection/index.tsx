@@ -15,9 +15,9 @@ const CardsSection = () => {
         <h3 className="text-zinc-600 mb-4 md:mb-0" data-testid="card-section-subtitle">
           Find everything you need for your next shoot.
         </h3>
-        <Button className="rounded-full font-semibold bg-zinc-600">
+        <Button className="rounded-full font-semibold bg-zinc-600 h-6">
           <Link href="/products" data-testid="shop-link">
-            Shop Now
+            Shop All
           </Link>
         </Button>
       </div>

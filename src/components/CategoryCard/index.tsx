@@ -19,7 +19,7 @@ const CategoryCard = ({ title, image, link }: CategoryCardProps) => {
           className="object-cover hover:scale-105 transform transition-transform duration-300"
           fill
         />
-        <div className="absolute bottom-4 left-4 bg-slate-300 bg-opacity-50 backdrop-blur-md px-4 py-2 rounded-lg">
+        <div className="absolute bottom-4 left-4 bg-slate-500 bg-opacity-50 backdrop-blur-md px-4 py-2 rounded-lg">
           <p className="text-zinc-50 font-montserrat font-semibold text-2xl">
             {title}
           </p>
