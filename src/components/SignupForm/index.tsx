@@ -80,8 +80,8 @@ const SignupForm = () => {
 
   return (
     <div className="bg-zinc-200 p-8 rounded-md mx-auto border-zinc-400 border-1 w-96">
-      <h1 className="text-2xl font-semibold  text-zinc-700 mb-6">
-        Signup To Get Started
+      <h1 className="text-2xl font-semibold  text-zinc-700 mb-4">
+        Sign Up To Get Started
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -192,6 +192,7 @@ const SignupForm = () => {
           Join Us
         </Button>
       </form>
+      <div className=" mt-6 border-b-2 border-zinc-400"></div>
 
       <p className=" mt-6">
         Already have an account?{" "}
