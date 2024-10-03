@@ -45,11 +45,37 @@ const SignupForm = () => {
   }, [setValue]);
 
   // Soumission du formulaire
-  //TODO: Ajouter la logique de soumission du formulaire
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onSubmit = (data: SignupFormData) => {
-    toast.success("Inscription réussie !");
-    // Logique supplémentaire pour traiter les données
+  const onSubmit = async (data: SignupFormData) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: `${data.firstName} ${data.lastName}`,
+            email: data.email,
+            password: data.password,
+          }),
+        }
+      );
+
+      const result = await res.json();
+
+      if (res.ok) {
+        toast.success("Signup successful!");
+        localStorage.setItem("signupEmail", data.email);
+      } else if (result.error?.message) {
+        // Afficher le message d'erreur spécifique
+        toast.error(result.error.message);
+      } else {
+        toast.error(result.message || "An error occurred during signup.");
+      }
+    } catch {
+      toast.error("An error occurred during signup.");
+    }
   };
 
   return (
