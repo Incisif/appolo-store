@@ -1,9 +1,11 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Montserrat, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Toaster from "@/components/Toaster";
+import { AuthProvider } from "@/contexts/AuthContext"; // Import du fournisseur d'authentification
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -32,12 +34,14 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${manrope.variable} antialiased`}
       >
-        <Header />
-        <main className=" w-full font-manrope">
-          <Toaster />
-          {children}
-        </main>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <main className=" w-full font-manrope">
+            <Toaster />
+            {children}
+          </main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
