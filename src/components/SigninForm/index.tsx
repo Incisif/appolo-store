@@ -3,10 +3,11 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
@@ -21,6 +22,7 @@ const signinSchema = z.object({
 type SigninFormData = z.infer<typeof signinSchema>;
 
 const SigninForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -32,33 +34,40 @@ const SigninForm = () => {
 
   // Soumission du formulaire
   const onSubmit = async (data: SigninFormData) => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            identifier: data.email,
-            password: data.password,
-          }),
-        }
-      );
-
-      const result = await res.json();
-
-      if (res.ok) {
-        toast.success("Signin successful!");
-      } else {
-        toast.error(
-          result.error?.message || "An error occurred during signin."
-        );
+    const signinPromise = fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identifier: data.email,
+          password: data.password,
+        }),
       }
-    } catch {
-      toast.error("An error occurred during signin.");
-    }
+    ).then(async (res) => {
+      const result = await res.json();
+      if (!res.ok) {
+        throw new Error(result.error?.message || result.message || "Signin failed");
+      }
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+      return result;
+    });
+  
+    toast.promise(signinPromise, {
+      pending: "Signing in...",
+      success: "Signin successful 👌",
+      error: {
+        render({ data }) {
+          // data contient l'erreur capturée
+          const error = data as { message?: string };
+          return `Error: ${error.message ?? "An error occurred"}`;
+        },
+      },
+    });
   };
 
   return (
@@ -139,7 +148,6 @@ const SigninForm = () => {
           Sign Up
         </Link>
       </p>
-      <ToastContainer />
     </div>
   );
 };

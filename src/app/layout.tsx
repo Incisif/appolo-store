@@ -3,6 +3,7 @@ import { Montserrat, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Toaster from "@/components/Toaster";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -32,7 +33,10 @@ export default function RootLayout({
         className={`${montserrat.variable} ${manrope.variable} antialiased`}
       >
         <Header />
-        <main className=" w-full font-manrope">{children}</main>
+        <main className=" w-full font-manrope">
+          <Toaster />
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

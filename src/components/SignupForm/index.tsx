@@ -3,10 +3,11 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
@@ -26,6 +27,7 @@ const signupSchema = z.object({
 type SignupFormData = z.infer<typeof signupSchema>;
 
 const SignupForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -46,41 +48,50 @@ const SignupForm = () => {
 
   // Soumission du formulaire
   const onSubmit = async (data: SignupFormData) => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: `${data.firstName} ${data.lastName}`,
-            email: data.email,
-            password: data.password,
-          }),
-        }
-      );
-
-      const result = await res.json();
-
-      if (res.ok) {
-        toast.success("Signup successful!");
-        localStorage.setItem("signupEmail", data.email);
-      } else if (result.error?.message) {
-        // Afficher le message d'erreur spécifique
-        toast.error(result.error.message);
-      } else {
-        toast.error(result.message || "An error occurred during signup.");
+    const signupPromise = fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          password: data.password,
+        }),
       }
-    } catch {
-      toast.error("An error occurred during signup.");
-    }
+    ).then(async (res) => {
+      const result = await res.json();
+      console.log(result);
+      if (!res.ok) {
+        throw new Error(
+          result.error?.message || result.message || "Signup failed"
+        );
+      }
+      localStorage.setItem("signupEmail", data.email);
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+      return result;
+    });
+
+    // Utilisation de toast.promise pour afficher les toasts pendant la promesse
+    toast.promise(signupPromise, {
+      pending: "Registration in progress...",
+      success: "Signup successful 👌",
+      error: {
+        render({ data }) {
+          const error = data as { message?: string };
+          return `Error: ${error.message ?? "An error occurred"}`;
+        },
+      },
+    });
   };
 
   return (
     <div className="bg-zinc-200 p-8 rounded-md mx-auto border-zinc-400 border-1 w-96">
-      <h1 className="text-2xl font-semibold  text-zinc-700 mb-4">
+      <h1 className="text-2xl font-semibold text-zinc-700 mb-4">
         Sign Up To Get Started
       </h1>
       <form
@@ -94,7 +105,7 @@ const SignupForm = () => {
             id="email"
             type="email"
             placeholder="Email"
-            className="w-w-full h-14 border-zinc-300 bg-white rounded-none"
+            className="w-full h-14 border-zinc-300 bg-white rounded-none"
             {...register("email")}
             aria-label="email"
             data-testid="email-input"
@@ -192,15 +203,13 @@ const SignupForm = () => {
           Join Us
         </Button>
       </form>
-      <div className=" mt-6 border-b-2 border-zinc-400"></div>
-
-      <p className=" mt-6">
+      <div className="mt-6 border-b-2 border-zinc-400"></div>
+      <p className="mt-6">
         Already have an account?{" "}
         <Link href="/signin" className="text-blue-600 underline ml-2">
           Sign in
         </Link>
       </p>
-      <ToastContainer />
     </div>
   );
 };
