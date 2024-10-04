@@ -34,22 +34,20 @@ const SigninForm = () => {
 
   // Soumission du formulaire
   const onSubmit = async (data: SigninFormData) => {
-    const signinPromise = fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: data.email,
-          password: data.password,
-        }),
-      }
-    ).then(async (res) => {
+    const signinPromise = fetch('/api/auth/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        rememberMe: data.rememberMe, // Pass the remember me value
+      }),
+    }).then(async (res) => {
       const result = await res.json();
       if (!res.ok) {
-        throw new Error(result.error?.message || result.message || "Signin failed");
+        throw new Error(result.message || "Signin failed");
       }
       setTimeout(() => {
         router.push("/");
@@ -61,10 +59,8 @@ const SigninForm = () => {
       pending: "Signing in...",
       success: "Signin successful 👌",
       error: {
-        render({ data }) {
-          // data contient l'erreur capturée
-          const error = data as { message?: string };
-          return `Error: ${error.message ?? "An error occurred"}`;
+        render({ data }: { data: { message?: string } }) {
+          return `Error: ${data?.message ?? "An error occurred"}`;
         },
       },
     });

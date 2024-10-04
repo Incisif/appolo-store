@@ -48,42 +48,35 @@ const SignupForm = () => {
 
   // Soumission du formulaire
   const onSubmit = async (data: SignupFormData) => {
-    const signupPromise = fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: `${data.firstName} ${data.lastName}`,
-          email: data.email,
-          password: data.password,
-        }),
-      }
-    ).then(async (res) => {
+    const signupPromise = fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        rememberMe: data.rememberMe,
+      }),
+    }).then(async (res) => {
       const result = await res.json();
-      console.log(result);
       if (!res.ok) {
-        throw new Error(
-          result.error?.message || result.message || "Signup failed"
-        );
+        throw new Error(result.message || "Signup failed");
       }
-      localStorage.setItem("signupEmail", data.email);
       setTimeout(() => {
         router.push("/");
       }, 2000);
       return result;
     });
 
-    // Utilisation de toast.promise pour afficher les toasts pendant la promesse
     toast.promise(signupPromise, {
-      pending: "Registration in progress...",
+      pending: "Signing up...",
       success: "Signup successful 👌",
       error: {
-        render({ data }) {
-          const error = data as { message?: string };
-          return `Error: ${error.message ?? "An error occurred"}`;
+        render({ data }: { data: { message?: string } }) {
+          return `Error: ${data.message ?? "An error occurred"}`;
         },
       },
     });
