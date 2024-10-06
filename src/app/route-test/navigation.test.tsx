@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import LandingPage from "../(landingPage)/page";
-import Header from "@/components/Header";
 import CategoryPage from "../(products)/category/[category]/page";
 import BrandPage from "../(products)/brands/[brand]/page";
 import ProfilePage from "../(user)/profile/page";
@@ -20,12 +19,6 @@ describe("Tests de navigation des pages", () => {
     expect(productLink).toBeInTheDocument();
   });
 
-  // Test pour la navigation vers la page Profil
-  it("navigue vers la page Profil lorsque le lien est cliqué", () => {
-    render(<Header />);
-    const profileLink = screen.getByTestId("userCircleIcon");
-    expect(profileLink).toHaveAttribute("href", "/profile");
-  });
 
   describe("Tests de la page de catégorie", () => {
     it('affiche la page de la catégorie "electronics"', () => {

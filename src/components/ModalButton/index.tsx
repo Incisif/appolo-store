@@ -60,7 +60,7 @@ const ModalButton = ({
       {isOpen && (
         <div
           ref={modalRef}
-          className="absolute mt-4 w-64 bg-white p-4 rounded-lg shadow-lg z-10"
+          className="absolute mt-8 w-64 bg-white p-4 rounded-lg shadow-lg z-10"
           style={{ top: "100%" }}
           data-testid="modal-content"
         >

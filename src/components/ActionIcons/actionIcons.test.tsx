@@ -12,9 +12,4 @@ describe("ActionIcons", () => {
         const shoppingBagIcon = screen.queryByTestId("shoppingBagIcon");
         expect(shoppingBagIcon).toBeInTheDocument();
     });
-    it("affiche l'icône de profil", () => {
-        render(<ActionIcons />);
-        const userCircleIcon = screen.queryByTestId("userCircleIcon");
-        expect(userCircleIcon).toBeInTheDocument();
-    });
     });

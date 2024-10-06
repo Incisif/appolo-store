@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import LandingPage from "./(landingPage)/page";
+import LandingPage from "./page";
 
 describe("Landing page", () => {
   // Teste si le titre principal est rendu

@@ -8,14 +8,14 @@ import React, {
   ReactNode,
 } from "react";
 
-interface AuthContextType {
+export interface AuthContextType {
   isLoggedIn: boolean;
   login: (email: string, password: string, rememberMe: boolean) => Promise<void>;
   logout: () => void;
   user: { id: string; email: string } | null;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuth = () => useContext(AuthContext);
 
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<{ id: string; email: string } | null>(null);
 
-  // Vérifier si l'utilisateur est connecté à chaque chargement de page
+  
   useEffect(() => {
     const checkUser = async () => {
       try {

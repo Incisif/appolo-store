@@ -36,12 +36,12 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Header />
-          <main className=" w-full font-manrope">
-            <Toaster />
-            {children}
-          </main>
-          <Footer />
         </AuthProvider>
+        <main className=" w-full font-manrope">
+          <Toaster />
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
